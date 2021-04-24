@@ -1,0 +1,152 @@
+@import '../variable.scss';
+.dashboard{
+  display: grid;
+  grid-template-areas: "contents content options";
+  grid-template-columns: 200px 1fr 220px;
+
+  & > div{
+    background: $primary-white;
+  }
+  .dashboard__contents{
+    grid-area: contents;
+  }
+  .dashboard__content{
+    grid-area: content;
+    margin: 0 10px;
+  }
+  .dashboard__options{
+    grid-area: options;
+  }
+}
+
+
+.class{
+  background: $highlight-blue;
+  display: inline-block;
+  padding: 8px;
+  margin: 5px;
+  border-radius: 5px;
+  width: 180px;
+  overflow: hidden;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  .class__logo{
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.521);
+  }
+  .class__description > div {
+    width: 100px;
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+  }
+  .class__title{
+    font-weight: bold;
+    font-size: .9rem;
+  }
+
+  .class__teacher_name{
+    font-weight: 500;
+    font-size: .6rem;
+
+  }
+  .class__extra{
+    display: none;
+  }
+  .class__options{
+    // Todo
+  }
+}
+
+
+.timeline-header{
+  height: 20px;
+  margin-right: 20px;
+  max-width: 700px;
+  background-color: #0A4C95;
+
+}
+.classes {
+  margin-right: 20px;
+  height: 110px;
+  position: relative;
+  background-color: gray;
+  max-width: 700px;
+  overflow-x: scroll;
+  scrollbar-width: none;
+  scrollbar-color: #0A4C95 #C2D2E4;
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+
+
+  // /* width */
+  // ::-webkit-scrollbar {
+  //   width: 10px;
+  // }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #adadad;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: rgb(111, 153, 120);
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgb(123, 172, 134);
+  }
+
+
+
+
+  .timeline {
+    background-color: #49399a44;
+    width: 100%;
+    height: 100%;
+    min-width: calc(48 * 80px);
+    user-select: none;
+    .class-items {
+      // position: absolute;
+      // top: 0;
+      width: 70px;
+      height: 100%;
+      border-radius: 3px;
+      background-color: lightgreen;
+    }
+    .lines {
+      top: 0;
+      left: 0;
+
+      height: 100%;
+      position: absolute;
+      width: 100%;
+      // margin-right: 500px;
+      .line {
+        left: 10px;
+        padding: 2px;
+        position: absolute;
+        word-wrap: 0;
+        white-space: nowrap;
+        // width: 70px;
+        height: 100%;
+        font-size: 10px;
+        color: #383838;
+
+
+        &:not(:first-child){
+          border-left: 1px dashed rgb(71, 71, 71);
+        }
+        &.active{
+          border-left-color: red;
+        }
+      }
+    }
+  }
+}

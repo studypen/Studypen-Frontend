@@ -1,0 +1,23 @@
+
+
+
+.wc{
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-areas: "hero  singup"
+                       "login singup";
+
+  .wc__hero{
+    grid-area: hero;
+    .wc__slogan{
+      font-size: 1.3em;
+      font-weight: 400;
+    }
+  }
+  .wc__login{
+    grid-area: login;
+  }
+  .wc__signup{
+    grid-area: singup;
+  }
+}
