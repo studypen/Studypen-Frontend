@@ -92,9 +92,9 @@ const development = merge(common, {
   mode: "development",
 
   output: {
-    publicPath: 'http://192.168.43.165:9000/static/',
+    // publicPath: 'http://192.168.43.165:9000/static/',
     // publicPath: 'static/',
-    path: path.resolve(__dirname, "build", "static"),
+    path: path.resolve(__dirname, "build"),
     filename: "js/[name].js",
     chunkFilename: "js/[name].chunk.js",
   },
@@ -106,6 +106,8 @@ const development = merge(common, {
   devServer: {
     host: '0.0.0.0',
     historyApiFallback: true,
+    contentBase: path.join(__dirname, 'public'),
+    contentBasePublicPath: '/static',
     port: 9000,
     hot: true,
     headers: {

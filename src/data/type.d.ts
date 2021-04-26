@@ -8,7 +8,11 @@ interface UserRegistrationDetail {
     email: string,
     password2: string,
 }
-
+type TOKENS = {
+    refresh: string,
+    access: string,
+    user: User
+}
 interface User {
     first_name: string,
     last_name: string,
@@ -31,7 +35,8 @@ type Classes = {
 
 
 type AuthState = {
-    user?: User
+    user?: User,
+    token?: string
 }
 type ClassState = {
     classes?: Classes
@@ -41,7 +46,7 @@ type ClassState = {
 
 type Action = {
     type: string,
-    payload?: User
+    payload?: any
 }
 type AuthAction = Action
 type ClassAction = Action
