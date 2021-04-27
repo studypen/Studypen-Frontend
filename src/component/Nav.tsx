@@ -20,12 +20,6 @@ export const Nav: React.FC = () => {
     <div className="user">
       {user === undefined ?
         (<div>
-          <button>
-            Login
-          </button>
-          <button>
-            SignUp
-          </button>
         </div>)
         : (<button onClick={() => logout(dispatch)}>
           Logout

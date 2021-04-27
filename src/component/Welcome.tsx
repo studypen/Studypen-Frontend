@@ -21,10 +21,10 @@ export const Welcome: React.FC = () => {
   return <div className="wc">
     <div className="wc__hero">
       <p className="wc__slogan">
-        Here you can mange your classes in ease
+        Here you can mange your classes easily
       </p>
       <p className="wc__main">
-        Its for <strong>Student</strong> by <strong> Student</strong>
+        For <strong>Students</strong> by <strong> Students</strong>
       </p>
     </div>
     <div className="wc__login">

@@ -115,7 +115,7 @@ export const Registration: React.FC = () => {
           type: 'password', required: true
         }} />
 
-      <input type="submit" value="Summit" />
+      <input type="submit" value="Submit" />
     </form>
   </div>)
 }
