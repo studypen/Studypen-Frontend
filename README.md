@@ -1,47 +1,20 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/cee2f09d-d59c-48b0-9d6f-16a1ef616840/deploy-status)](https://app.netlify.com/sites/studypen/deploys)
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# ABOUT STUDYPEN
 
-## Available Scripts
 
-In the project directory, you can run:
+## `Abstract`
 
-### `yarn start`
+The issue of online classes is very paramount during the situation of covid-19. So, this project is aimed at developing an online website that will be an important thing for the students as well as the professors of the JIS University. This website can be accessed by the students and the professors so the students can access their routine, syllabus, lectures, assignments and the professors can take the classes, gives assignments, reschedule classes etc.  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## `Objective of the Project`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+This project is mainly aimed at the online classes during quarantine. We tried to make a website where professors can interact with the students like they can take classes, give assignment, reschedule their extra classes as well as the students can use this website to attend their classes, see their routine and syllabus, check mails etc. Our main motive behind making this website is to give the professors and students the easiest way to attend classes online.  
 
-### `yarn test`
+## `Problems and Solutions`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Sometimes some students forget about the routine and miss classes or sometime they don't get any notification if any professor uploads any assignment. So, In this website every student will get a notification whenever any professor uploads assignment and before their classes.
 
-### `yarn build`
+## `Results and Conclusion`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Online classes are so much important during the Covid-19 situation and so are the assignments and lectures. So, we tried to develop a website which fulfills all these needs for both students and professors. As the end of this project, we successfully made the website. There are still some bugs and problems in this website but we will try our best and make sure that Studypen becomes a perfect one.
