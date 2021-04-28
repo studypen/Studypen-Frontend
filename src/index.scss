@@ -1,14 +1,15 @@
 @import './variable.scss';
 :root {
-  --c-highlight-blue: #99bbd7ab;
-  --c-highlight-pink: #db8ecfab;
-  --c-highlight-violet: #9591d9ab;
-  --c-highlight-orenge: #da9e9aab;
-  --c-highlight-yellow: #d8bf89ab;
+  --c-highlight-blue: #99bbd7;
+  --c-highlight-pink: #db8ecf;
+  --c-highlight-violet: #9591d9;
+  --c-highlight-orenge: #da9e9a;
+  --c-highlight-yellow: #d8bf89;
   --c-primary-black: #131313;
-  --c-primary-white: #f1f1f1;
-  --c-primary-grey: #6b6b6b;
-  --c-global-background: #cfcfcf;
+  --c-primary-white: #FFFFFF;
+  --c-primary-grey: #9da7ad;
+  --c-global-background: #ECF1F4;
+  --c-primary-color: #704AFD;
 }
 body {
   margin: 0;
@@ -27,8 +28,14 @@ body {
 }
 button {
 
-  padding: .2rem .5rem;
+  padding: .4rem 1.2rem;
   cursor: pointer;
+  color: $primary-white;
+  background: $highlight-yellow;
+  outline: none;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border: none;
 
 }
 code {

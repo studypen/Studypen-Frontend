@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector, shallowEqual, useDispatch } from 'react-redux'
+import { shallowEqual, useDispatch } from 'react-redux'
 import { Dispatch } from 'redux'
 import { logout } from '../data/rest'
 import { AppState } from '../data/store'

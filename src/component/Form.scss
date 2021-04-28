@@ -1,20 +1,35 @@
+
+@import '../variable.scss';
+
+
+
 form{
   text-align: left;
-  background-color: #efefef;
   margin: 5px;
   padding: 5px;
+  display: grid;
+
   h2{
     margin-left: 10px;
   }
 .input-group{
-  display: grid;
+  // display: grid;
   margin: 10px;
   align-items: center;
   grid-template-columns: 150px 200px;
-  p{
-    display: inline;
-    margin-right: 20px;
+  input{
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid $primary-grey;
+  }
 
+  p{
+    font-size: 1rem;
+    display: inline;
+    &:not(.error-msg){
+      display: none;
+    }
+    content: '';
     &.error-msg{
       font-size: 0.76rem;
       color: #ef3333;
@@ -24,15 +39,18 @@ form{
 input{
   padding: 5px;
   height: 2rem;
+  background: transparent;
   outline: none;
   border: 1px solid #202020;
 
   &[type="submit"]{
     margin-left: 10px;
-    background-color: #653012;
+    background-color: $primary-color;
     // border-radius: 5px;
     color: #dfdfdf;
     width: 100px;
+    font-size: 1rem;
+    font-weight: 400;
     border: none;
     cursor: pointer;
   }
