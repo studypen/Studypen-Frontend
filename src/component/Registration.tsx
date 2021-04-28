@@ -1,24 +1,9 @@
 import React, { Dispatch, useState } from 'react'
-import axios from 'axios'
 import './Form.scss'
 import { registration } from '../data/rest'
 import { useDispatch } from 'react-redux'
+import { InputGroup } from './InputGroup'
 
-axios.defaults.xsrfCookieName = 'csrftoken'
-axios.defaults.xsrfHeaderName = 'X-CSRFToken'
-type InputGroupProps = { label: string, errMsg: string, inputArg: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> }
-const InputGroup: React.FC<InputGroupProps> = ({ inputArg, label, errMsg }: InputGroupProps) => {
-
-  return (
-    <label className="input-group">
-      <p>{label}</p>
-      <div>
-        <input {...inputArg} />
-        <p className="error-msg">{errMsg}</p>
-      </div>
-    </label>
-  )
-}
 const emptyUserRegistrationDetail: UserRegistrationDetail = {
   first_name: '',
   last_name: '',
@@ -64,6 +49,7 @@ export const Registration: React.FC = () => {
         label="First Name"
         errMsg={errorMsg.first_name}
         inputArg={{
+          placeholder:"Enter your First Name",
           name: 'first_name',
           value: first_name,
           onChange: ({ target }) => setFirstName(target.value),
@@ -73,6 +59,7 @@ export const Registration: React.FC = () => {
         label="Last Name"
         errMsg={errorMsg.last_name}
         inputArg={{
+          placeholder:"Enter your Last Name",
           name: 'last_name',
           value: last_name,
           onChange: ({ target }) => setLastName(target.value),
@@ -83,6 +70,7 @@ export const Registration: React.FC = () => {
         errMsg={errorMsg.username}
         inputArg={{
           name: 'username',
+          placeholder: 'Enter your Username',
           value: username,
           onChange: ({ target }) => setUsername(target.value),
           type: 'text', required: true
@@ -91,6 +79,7 @@ export const Registration: React.FC = () => {
         label="Email"
         errMsg={errorMsg.email}
         inputArg={{
+          placeholder: 'Enter your Email',
           name: 'email',
           value: email,
           onChange: ({ target }) => setEmail(target.value),
@@ -101,6 +90,7 @@ export const Registration: React.FC = () => {
         errMsg={errorMsg.password}
         inputArg={{
           name: 'password',
+          placeholder: 'Enter your Password',
           value: password,
           onChange: ({ target }) => setPassword(target.value),
           type: 'password', required: true
@@ -110,12 +100,13 @@ export const Registration: React.FC = () => {
         errMsg={errorMsg.password2}
         inputArg={{
           name: 'repassword',
+          placeholder: 'Re-Enter your Password',
           value: rePassword,
           onChange: ({ target }) => setRePassword(target.value),
           type: 'password', required: true
         }} />
 
-      <input type="submit" value="Submit" />
+      <input type="submit" value="Sign Up" />
     </form>
   </div>)
 }

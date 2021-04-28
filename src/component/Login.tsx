@@ -1,17 +1,14 @@
-import React, { Dispatch, FormEvent, FormEventHandler, useState } from 'react'
-import axios from 'axios'
+import React, { Dispatch, useState } from 'react'
 import './Form.scss'
 import { useDispatch } from 'react-redux'
 import { login } from '../data/rest'
-
-axios.defaults.xsrfCookieName = 'csrftoken'
-axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+import { InputGroup } from './InputGroup'
 
 export const Login: React.FC = () => {
-const [username, setUsername] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [disabled, setDisabled] = useState(false)
-  const [errorMsg, setErrorMsg] = useState('')
+  const [errorMsg, setErrorMsg] = useState({username: '', password: '', general: ''})
   const dispatch: Dispatch<AuthAction> = useDispatch()
 
   const loginIner = async () => {
@@ -19,8 +16,8 @@ const [username, setUsername] = useState('')
     setDisabled(true)
     const msg = await login(dispatch, username, password)
     if (msg !== undefined)
-      {setErrorMsg(msg?.data?.detail ?? '')}
-    else {setErrorMsg('')}
+      {setErrorMsg({...errorMsg, general: msg?.data?.detail ?? ''})}
+    else {setErrorMsg({...errorMsg})}
     setDisabled(false)
   }
 
@@ -28,17 +25,30 @@ const [username, setUsername] = useState('')
   return (<div>
     <form onSubmit={(e) => { e.preventDefault(); loginIner() }}>
       <h2>Login</h2>
-      <label className="input-group">
-        <p>Username</p>
-        <input name="username" placeholder="Username" value={username} onChange={({ target }) => setUsername(target.value)} type="text" required />
-      </label>
-      <label className="input-group">
-        <p>Password</p>
-        <input name="password" placeholder="Password" value={password} onChange={({ target }) => setPassword(target.value)} type="password" required />
-      </label>
+      <InputGroup
+        label="Username"
+        errMsg={errorMsg.username}
+        inputArg={{
+          placeholder: 'Enter your Username',
+          name: 'username',
+          value: username,
+          onChange: ({ target }) => setUsername(target.value),
+          type: 'text', required: true
+        }} />
+      <InputGroup
+        label="Password"
+        errMsg={errorMsg.password}
+        inputArg={{
+          placeholder: 'Enter your Password',
+          name: 'password',
+          value: password,
+          onChange: ({ target }) => setPassword(target.value),
+          type: 'text', required: true
+        }} />
+
       <div>
-        <div className="input-group"> <p className="error-msg"> {errorMsg}</p>  </div>
-        <input disabled={disabled} type="submit" value="Submit" />
+        <div className="input-group"> <p className="error-msg"> {errorMsg.general}</p>  </div>
+        <input disabled={disabled} type="submit" value="Log in" />
       </div>
     </form>
   </div>)

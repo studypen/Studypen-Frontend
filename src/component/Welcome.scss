@@ -1,12 +1,35 @@
-
-
+@import '../media-queries.scss';
+@import '../variable.scss';
 
 .wc{
   display: grid;
-  grid-template-columns: auto auto;
-  grid-template-areas: "hero  singup"
-                       "login singup";
+  grid-template-columns: auto;
+  justify-content: center;
+  grid-template-areas: "hero" "form";
 
+  // TODO: height shout be full ablable space
+
+  @include leargerThan('tablet'){
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "hero form";
+    align-items: center;
+    justify-content: space-evenly;
+
+    // justify-content: c;
+    padding: 0 10%;
+  }
+  & > div {
+    margin: 10px 5px;
+  }
+  .wc__form{
+    grid-area: form;
+    width: clamp(20rem, 100%, 30rem);
+
+    transition: height 300ms ease;
+    position: relative;
+    overflow: hidden;
+
+  }
   .wc__hero{
     grid-area: hero;
     .wc__slogan{
@@ -14,10 +37,42 @@
       font-weight: 400;
     }
   }
-  .wc__login{
-    grid-area: login;
+
+  .wc__form-transition{
+    transition: opacity 300ms ease-in-out, height 200ms ease;
+
   }
-  .wc__signup{
-    grid-area: singup;
+  .wc__form-transition-enter{
+    z-index: 1;
+    opacity: 0;
+  }
+  .wc__form-transition-enter-active{
+    opacity: 1;
+  }
+  .wc__form-transition-enter-done{
+    opacity: 1;
+  }
+
+  .wc__form-transition.exit{
+    height: 0;
+    opacity: 1;
+  }
+
+  .wc__form-transition.exit-active{
+    opacity: 0;
+  }
+  .wc__login, .wc__signup{
+    background: $primary-white;
+    overflow: hidden;
+    div.wc__form-btn{
+      margin: 20px;
+      button{
+        margin-left: 0.3em;
+        padding: 0;
+        background: transparent;
+        color: $primary-color;
+        font-size: .8rem;
+      }
+    }
   }
 }
