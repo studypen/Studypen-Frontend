@@ -40,6 +40,7 @@ export const fetchCurrentUser = async (): Promise<void> => {
   if (typeof res === 'boolean') { store.dispatch({ type: actions.UNSET_CURRENT_USER }) }
 
   else {
+    getClasses()
     store.dispatch({ type: actions.SET_CURRENT_USER, payload: res.data })
   }
 }
@@ -102,6 +103,15 @@ export const registration = async (_dispatch: Dispatch<AuthAction>,
 }
 
 
-export const getClasses = async (dispatch: Dispatch<ClassAction>): Promise<void> => {
+export const getClasses = async (): Promise<void> => {
   const url = '/classes/list/'
+
+  store.dispatch({type:actions.CLASSES_LOADING})
+
+  const res = await server.get<Classes[]>(url)
+  store.dispatch({
+    type: actions.CLASSES_LOADED,
+    payload: res.data
+  })
+
 }

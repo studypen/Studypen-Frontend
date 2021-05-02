@@ -1,26 +1,70 @@
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react'
+import { shallowEqual } from 'react-redux'
+import { getClasses } from '../data/rest'
+import { useAppState } from '../hooks/useForm'
 import './Dashboard.scss'
+import { InputGroup } from './InputGroup'
 
-export const CreateClass: FC = () => {
+const ClassItem: FC<{ cls: Classes }> = ({ cls }) => {
   return (
     <div className="class">
 
       <div className="class__logo"></div>
       <div className="class__description">
-        <div className="class__title">CS401</div>
-        <div className="class__teacher_name">Hillal Roy</div>
+        <div className="class__title">{cls.code}</div>
+        <div className="class__teacher_name">{cls.teacher.first_name} {cls.teacher.last_name}</div>
         <div className="class__extra">provide letter</div>
       </div>
-      <div className="class__options">&gt;</div>
     </div>
   )
 }
+const CreateClass: FC = () => {
+  const [className, setClassName] = useState('')
+  return <>
+    <InputGroup
+      label="hidden"
+      errMsg="" // TODO
+      inputArg={{
+        type: 'text',
+        placeholder: 'Enter class Name',
+        value: className,
+        onChange: ({target}) => setClassName(target.value),
+      }}
+    />
+  </>
+}
+
+const ClassList: FC = () => {
+  const classState = useAppState(clses => clses.classReducer, shallowEqual)
+
+  return <div className="class-list">
+    <div className="class-list__tool-bar">
+
+      <h1>Your classes</h1>
+    </div>
+    <div className="class-list__list">
+        <CreateClass></CreateClass>
+      {
+        classState.isLoaded
+          // if loaded
+          ? classState.classes!.map((cls) => <ClassItem key={cls.id} cls={cls} />)
+          : classState.isLoading
+            // if loading
+            ? <> loading...</>
+            // if loading fail
+            : <> loading fail <button onClick={() => getClasses()} className="inline"> retry </button></>
+      }
+    </div>
+
+  </div>
+}
+
 export const Dashboard: FC = () => {
   return <div className="dashboard">
     <div className="dashboard__contents"></div>
     <div className="dashboard__content">
 
-      <CreateClass></CreateClass>
+      <ClassList />
     </div>
     <div className="dashboard__options"></div>
   </div>

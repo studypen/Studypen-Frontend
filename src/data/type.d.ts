@@ -24,13 +24,8 @@ type Classes = {
     id: string,
     name: string,
     code: string,
-    teacher: {
-        username: string,
-        email: string,
-        first_name: string,
-        last_name: string
-    },
-    students: string[],
+    teacher: User, // TODO only Full name require
+    students: User[], // TODO ^^^^^^^^^^
 }
 
 
@@ -39,7 +34,9 @@ type AuthState = {
     token?: string
 }
 type ClassState = {
-    classes?: Classes
+    isLoading: boolean,
+    isLoaded: boolean,
+    classes?: Classes[]
 }
 
 

@@ -1,7 +1,7 @@
 import * as redux from 'redux'
 import * as actionTypes from './actionTypes'
 import * as constants from './constants'
-import { fetchCurrentUser, server } from './rest'
+import { server } from './rest'
 export const authReducer = (
   state: AuthState = {},
   action: AuthAction
@@ -33,13 +33,16 @@ export const authReducer = (
 }
 
 export const classReducer = (
-  state: ClassState = {},
+  state: ClassState = { isLoaded: false, isLoading:false },
   action: ClassAction
 ): ClassState => {
   switch (action.type) {
-    case actionTypes.LOGIN_FAILED:
-      return { ...state }
-
+    case actionTypes.CLASSES_LOADING:
+      return { ...state,  isLoading: true}
+    case actionTypes.CLASSES_LOAD_FAIL:
+      return { ...state, isLoading: false, isLoaded: false }
+    case actionTypes.CLASSES_LOADED:
+      return {...state, isLoading:false, isLoaded:true, classes: action.payload}
     default:
       return state
   }

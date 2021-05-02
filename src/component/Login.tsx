@@ -43,7 +43,7 @@ export const Login: React.FC = () => {
           name: 'password',
           value: password,
           onChange: ({ target }) => setPassword(target.value),
-          type: 'text', required: true
+          type: 'password', required: true
         }} />
 
       <div>
