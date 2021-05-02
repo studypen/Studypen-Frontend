@@ -7,6 +7,7 @@ interface UserRegistrationDetail {
     username: string,
     email: string,
     password2: string,
+    detail?: string
 }
 type TOKENS = {
     refresh: string,

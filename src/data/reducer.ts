@@ -2,6 +2,7 @@ import * as redux from 'redux'
 import * as actionTypes from './actionTypes'
 import * as constants from './constants'
 import { server } from './rest'
+
 export const authReducer = (
   state: AuthState = {},
   action: AuthAction
@@ -22,6 +23,7 @@ export const authReducer = (
 
     case actionTypes.UNSET_CURRENT_USER:
       window.localStorage.removeItem(constants.refreshToken)
+      server.defaults.headers['Authorization'] = ''
       return { ...state, user: undefined }
     case actionTypes.TRYING_FETCH_USER:
     // TODO:

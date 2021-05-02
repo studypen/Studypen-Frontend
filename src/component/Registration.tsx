@@ -10,7 +10,8 @@ const emptyUserRegistrationDetail: UserRegistrationDetail = {
   email: '',
   password: '',
   password2: '',
-  username: ''
+  username: '',
+  detail: ''
 }
 
 export const Registration: React.FC = () => {
@@ -20,22 +21,25 @@ export const Registration: React.FC = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [rePassword, setRePassword] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const [errorMsg, setErrorMsg] = useState<UserRegistrationDetail>(emptyUserRegistrationDetail)
 
   const dispatch: Dispatch<AuthAction> = useDispatch()
 
   const registrationIner = async () => {
+    setIsLoading(true)
     const msg = await registration(dispatch, {
       first_name, last_name,
       email, username, password, password2: rePassword
     })
     if (msg !== undefined) {
+      setIsLoading(false)
       const data = msg?.data as UserRegistrationDetail
-      // console.log({ msg })
+      setErrorMsg({...emptyUserRegistrationDetail})
       for (const key in data) {
 
         if (key in errorMsg) {
-          setErrorMsg({ ...emptyUserRegistrationDetail, [key as keyof UserRegistrationDetail]: data[key as keyof UserRegistrationDetail] })
+          setErrorMsg({ ...errorMsg, [key as keyof UserRegistrationDetail]: data[key as keyof UserRegistrationDetail] })
         }
       }
     }
@@ -106,7 +110,12 @@ export const Registration: React.FC = () => {
           type: 'password', required: true
         }} />
 
-      <input type="submit" value="Sign Up" />
+        <div className="input-group"> <p className="error-msg"> {errorMsg.detail ?? ''}</p>  </div>
+      {/* <input type="submit" value="Sign Up" /> */}
+      <button disabled={isLoading} type="submit">
+          Sign Up
+          { isLoading ? <div className="loader"> </div> : <></> }
+        </button>
     </form>
   </div>)
 }

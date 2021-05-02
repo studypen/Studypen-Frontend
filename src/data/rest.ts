@@ -9,8 +9,8 @@ import { isDev } from '../utils/tools'
 export const server = axios.create({
   baseURL: isDev ? `http://${window.location.hostname}:8000` : `https://backend.studypen.in`,
   timeout: 1000,
-  xsrfCookieName: 'csrftoken',
-  xsrfHeaderName: 'X-CSRFToken',
+  // xsrfCookieName: 'csrftoken',
+  // xsrfHeaderName: 'X-CSRFToken',
   headers: {
     'Access-Control-Allow-Origin': `*`,
     'Authorization': ``
@@ -18,7 +18,11 @@ export const server = axios.create({
   ,
   // withCredentials: true
 })
-
+// const csrfCooke = async() => {
+  // const res = server.get('/cors/')
+  // console.log(res)
+// }
+// csrfCooke()
 
 // fetch(`http://${window.location.hostname}:8000/account/token/`, {
 //   mode: 'no-cors',method:'POST',
@@ -86,7 +90,6 @@ export const login = async (dispatch: Dispatch<AuthAction>,
   let error = false
   const res = await server.post<TOKENS>('/account/token/', { username, password })
     .catch((err: AxiosError<TOKENS>) => { error = true; return err.response })
-  console.log(res)
   if (error) { return res }
 
   else if (res !== undefined) setUserToken(res.data)

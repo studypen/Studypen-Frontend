@@ -1,58 +1,60 @@
+@import "../variable.scss";
 
-@import '../variable.scss';
-
-
-
-form{
+form {
   text-align: left;
   margin: 5px;
   padding: 5px;
   display: grid;
 
-  h2{
+  h2 {
     margin-left: 10px;
   }
-.input-group{
-  // display: grid;
-  margin: 10px;
-  align-items: center;
-  grid-template-columns: 150px 200px;
-  input{
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid $primary-grey;
-  }
-
-  p{
-    font-size: 1rem;
-    display: inline;
-    &:not(.error-msg){
-      // display: none;
+  .input-group {
+    // display: grid;
+    margin: 10px;
+    align-items: center;
+    grid-template-columns: 150px 200px;
+    input {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid $primary-grey;
     }
-    content: '';
-    &.error-msg{
-      font-size: 0.76rem;
-      color: #ef3333;
+
+    p {
+      font-size: 1rem;
+      display: inline;
+
+      content: "";
+      &.error-msg {
+        font-size: 0.76rem;
+        color: #ef3333;
+      }
     }
   }
-}
-input{
-  padding: 5px;
-  height: 2rem;
-  background: transparent;
-  outline: none;
-  border: 1px solid #202020;
-
-  &[type="submit"]{
+  input {
+    padding: 5px;
+    height: 2rem;
+    background: transparent;
+    outline: none;
+    border: 1px solid #202020;
+  }
+  button[type="submit"] {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
     margin-left: 10px;
-    background-color: $primary-color;
+    --bg-color: #{$primary-color};
     // border-radius: 5px;
     color: #dfdfdf;
-    width: 100px;
+    width: 10rem;
     font-size: 1rem;
     font-weight: 400;
     border: none;
     cursor: pointer;
+
+    &:disabled {
+      --bg-color: #{$primary-grey};
+    }
+    background-color: var(--bg-color);
   }
-}
 }

@@ -12,7 +12,6 @@ export const Home: React.FC = () => {
   const user = useAppState(
     (state: AppState) => state.authReducer.user, shallowEqual
   )
-  console.log(user)
   return (
     <section className="home">
       {

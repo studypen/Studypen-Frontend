@@ -1,29 +1,32 @@
-import React, { Dispatch, useState } from 'react'
+import React, { FC, Dispatch, useState } from 'react'
 import './Form.scss'
 import { useDispatch } from 'react-redux'
 import { login } from '../data/rest'
 import { InputGroup } from './InputGroup'
+import './Loading.scss'
 
 export const Login: React.FC = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [disabled, setDisabled] = useState(false)
-  const [errorMsg, setErrorMsg] = useState({username: '', password: '', general: ''})
+  const [errorMsg, setErrorMsg] = useState({ username: '', password: '', general: '' })
   const dispatch: Dispatch<AuthAction> = useDispatch()
+  const [isLoading, setIsLoading] = useState(false)
 
   const loginIner = async () => {
     // somthing
-    setDisabled(true)
+    // setIsLoading(!isLoading)
+    // return
+    setIsLoading(true)
     const msg = await login(dispatch, username, password)
-    if (msg !== undefined)
-      {setErrorMsg({...errorMsg, general: msg?.data?.detail ?? ''})}
-    else {setErrorMsg({...errorMsg})}
-    setDisabled(false)
+    if (msg !== undefined) {
+      setErrorMsg({ ...errorMsg, general: msg?.data?.detail ?? '' })
+      setIsLoading(false)
+    }
   }
 
 
   return (<div>
-    <form onSubmit={(e) => { e.preventDefault(); loginIner() }}>
+    <form id="login-form" onSubmit={(e) => { e.preventDefault(); loginIner() }}>
       <h2>Login</h2>
       <InputGroup
         label="Username"
@@ -48,7 +51,11 @@ export const Login: React.FC = () => {
 
       <div>
         <div className="input-group"> <p className="error-msg"> {errorMsg.general}</p>  </div>
-        <input disabled={disabled} type="submit" value="Log in" />
+        {/* <input disabled={isLoading} type="submit" value="Log in" /> */}
+        <button disabled={isLoading} type="submit">
+          Log in
+          { isLoading ? <div className="loader"> </div> : <></> }
+        </button>
       </div>
     </form>
   </div>)

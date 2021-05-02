@@ -14,11 +14,18 @@ export const Welcome: React.FC = () => {
   const [formHeight, setFormHeight] = useState<undefined | number>(undefined)
 
   const [wcLoginForm, wcSignupForm] = [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)]
+  const resizeObserver = new ResizeObserver(([{contentRect}]) =>{
+      if(contentRect.height !== 0)
+      setFormHeight(contentRect.height)
+    })
+
   useEffect(() => {
+    if (!(wcLoginForm.current && wcSignupForm.current)) return
     if (whichFrom === 'login')
-      wcLoginForm.current && setFormHeight(wcLoginForm.current.offsetHeight)
+      resizeObserver.observe(wcLoginForm.current)
+
     else if (whichFrom === 'signup')
-      wcSignupForm.current && setFormHeight(wcSignupForm.current.offsetHeight)
+      resizeObserver.observe(wcSignupForm.current)
 
   }, [whichFrom])
 
@@ -33,35 +40,35 @@ export const Welcome: React.FC = () => {
       </p>
     </div>
     <div className="wc__form" style={{ height: formHeight }}>
-        <EntryContainer
-          in={whichFrom === 'login'}
-          timeout={500}
-          unmountOnExit
-          className="wc__form-transition"
-        >
+      <EntryContainer
+        in={whichFrom === 'login'}
+        timeout={500}
+        unmountOnExit
+        className="wc__form-transition"
+      >
 
-          <div ref={wcLoginForm} className="wc__login">
-            <Login />
+        <div ref={wcLoginForm} className="wc__login">
+          <Login />
 
-            <div className="wc__form-btn">
-              Have no account
+          <div className="wc__form-btn">
+            Have no account
               <button onClick={() => setWhichForm('signup')}>Sign up</button>
-            </div>
           </div>
-        </EntryContainer>
-        <EntryContainer
-          in={whichFrom === 'signup'}
-          unmountOnExit
-          timeout={500}
-          classNames="wc__form-transition"
-        >
-          <div ref={wcSignupForm} className="wc__signup"> <Registration />
-            <div className="wc__form-btn">
-              Already have account
+        </div>
+      </EntryContainer>
+      <EntryContainer
+        in={whichFrom === 'signup'}
+        unmountOnExit
+        timeout={500}
+        classNames="wc__form-transition"
+      >
+        <div ref={wcSignupForm} className="wc__signup"> <Registration />
+          <div className="wc__form-btn">
+            Already have account
             <button onClick={() => setWhichForm('login')}>Log in</button>
-            </div>
           </div>
-        </EntryContainer>
+        </div>
+      </EntryContainer>
     </div>
   </div>
 }
