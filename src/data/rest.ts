@@ -3,10 +3,11 @@ import { Dispatch } from 'react'
 import * as actions from './actionTypes'
 import { store } from './store'
 import * as constants from './constants'
+import { isDev } from '../utils/tools'
 // console.log(store);
 
 export const server = axios.create({
-  baseURL: `http://${window.location.hostname}:8000`,
+  baseURL: isDev ? `http://${window.location.hostname}:8000` : `https://backend.studypen.in`,
   timeout: 1000,
   xsrfCookieName: 'csrftoken',
   xsrfHeaderName: 'X-CSRFToken',

@@ -27,7 +27,7 @@ form{
     font-size: 1rem;
     display: inline;
     &:not(.error-msg){
-      display: none;
+      // display: none;
     }
     content: '';
     &.error-msg{
