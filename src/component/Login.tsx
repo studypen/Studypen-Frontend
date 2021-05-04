@@ -9,15 +9,11 @@ export const Login: React.FC = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errorMsg, setErrorMsg] = useState({ username: '', password: '', general: '' })
-  const dispatch: Dispatch<AuthAction> = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
 
   const loginIner = async () => {
-    // somthing
-    // setIsLoading(!isLoading)
-    // return
     setIsLoading(true)
-    const msg = await login(dispatch, username, password)
+    const msg = await login(username, password)
     if (msg !== undefined) {
       setErrorMsg({ ...errorMsg, general: msg?.data?.detail ?? '' })
       setIsLoading(false)

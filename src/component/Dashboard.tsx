@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { shallowEqual } from 'react-redux'
 import { getClasses } from '../data/rest'
 import { useAppState } from '../hooks/useForm'
@@ -20,17 +21,17 @@ const ClassItem: FC<{ cls: Classes }> = ({ cls }) => {
 }
 const CreateClass: FC = () => {
   const [className, setClassName] = useState('')
-  return <>
-    <InputGroup
-      label="hidden"
-      errMsg="" // TODO
-      inputArg={{
-        type: 'text',
-        placeholder: 'Enter class Name',
-        value: className,
-        onChange: ({target}) => setClassName(target.value),
-      }}
-    />
+  // const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const {register, handleSubmit} = useForm()
+  const innerHandleSubmit = () => {}
+ return <>
+  <form onSubmit={handleSubmit(innerHandleSubmit)}>
+    <label className="input-group">
+        
+      <input {...register('className')} />
+
+    </label>
+  </form>
   </>
 }
 

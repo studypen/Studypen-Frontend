@@ -66,8 +66,7 @@ export const getAccessToken = async (): Promise<boolean> => {
   // TODO: handel error
 }
 
-export const initUser = async (dispatch: Dispatch<AuthAction>)
-  : Promise<void> => {
+export const initUser = async () : Promise<void> => {
   const isAccess = await getAccessToken()
   if (isAccess) fetchCurrentUser() // don't need to await
 }
@@ -85,8 +84,7 @@ export const setUserToken = (tokens: TOKENS) => {
   store.dispatch({ type: actions.SET_TOKEN, payload: tokens})
   store.dispatch({ type: actions.SET_CURRENT_USER, payload: tokens.user })
 }
-export const login = async (dispatch: Dispatch<AuthAction>,
-  username: string, password: string): Promise<AxiosResponse | void> => {
+export const login = async (username: string, password: string): Promise<AxiosResponse | void> => {
   let error = false
   const res = await server.post<TOKENS>('/account/token/', { username, password })
     .catch((err: AxiosError<TOKENS>) => { error = true; return err.response })
@@ -95,8 +93,7 @@ export const login = async (dispatch: Dispatch<AuthAction>,
   else if (res !== undefined) setUserToken(res.data)
 }
 
-export const registration = async (_dispatch: Dispatch<AuthAction>,
-  userDetail: UserRegistrationDetail): Promise<AxiosResponse | void> => {
+export const registration = async (userDetail: UserRegistrationDetail): Promise<AxiosResponse | void> => {
   let error = false
   // check return type
   const res = await server.post<TOKENS>('/account/register/', userDetail)
