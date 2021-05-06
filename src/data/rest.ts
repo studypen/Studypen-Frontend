@@ -1,10 +1,9 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
-import { Dispatch } from 'react'
 import * as actions from './actionTypes'
 import { store } from './store'
 import * as constants from './constants'
 import { isDev } from '../utils/tools'
-import { ClassInfo } from '@components/Dashboard'
+import { ClassInfo } from '../components/Dashboard'
 // console.log(store);
 
 export const server = axios.create({

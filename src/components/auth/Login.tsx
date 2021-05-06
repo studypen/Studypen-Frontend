@@ -48,7 +48,7 @@ export const Login: React.FC = () => {
         <div className="input-group"> <p className="error-msg"> {errorMsg.general}</p>  </div>
         {/* <input disabled={isLoading} type="submit" value="Log in" /> */}
         <button disabled={isLoading} type="submit">
-          Log ina
+          Log in
           { isLoading ? <div className="loader"> </div> : <></> }
         </button>
       </div>
