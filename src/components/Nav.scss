@@ -1,0 +1,53 @@
+nav {
+  display: flex;
+  padding: 5px 10px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  h1 {
+    margin: 0 10px;
+  }
+  #search-bar {
+    border-radius: 3em;
+    border: 1px solid;
+    padding: 0.3em;
+    text-align: center;
+    #search {
+      padding-left: .3em;
+
+      &,
+      &:focus,
+      &:focus-visible {
+        outline: none;
+        border: 0;
+      }
+      background: transparent;
+    }
+  }
+  .actions{
+    display: flex;
+    &> div{
+      margin: 0 1em;
+    }
+  }
+}
+
+
+.dropdown{
+  position: relative;
+  .dropdown_items{
+    display: none;
+  }
+  &.show .dropdown_items{
+    background: #330330;
+    position: absolute;
+    right: 0;
+    display: block;
+    border-radius: 0.3rem;
+    top: 2rem;
+    button{
+      background: none;
+      font-size: 0.7rem;
+    }
+  }
+}

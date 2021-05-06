@@ -7,6 +7,29 @@ const { merge } = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
+
+const babelCommonPlugins = [
+  // [
+  //   "module-resolver",
+  //   {
+  //     "alias": {
+  //       "@components": "./src/components",
+  //       "@data": "./src/data",
+  //       "@pages": "./src/pages",
+  //       "@hooks": "./src/hooks",
+  //       "@utils": "./src/utils",
+  //     }
+  //   }
+  // ],
+  "@babel/plugin-syntax-dynamic-import",
+  "@babel/plugin-proposal-class-properties",
+  "@babel/plugin-transform-runtime"
+]
+
+
+
+
+
 const common = {
   target: 'web',
   optimization: { splitChunks: { chunks: 'all' } },
@@ -37,7 +60,7 @@ const common = {
     new HtmlWebpackPlugin({
       inject: true,
       filename: path.resolve(__dirname, "build", "index.html"),
-      template: path.resolve(__dirname, "public", "index.html"),
+      template: path.resolve(__dirname, "src", "index.html"),
     }),
     new BundleTracker({
       path: __dirname,
@@ -75,11 +98,7 @@ const production = merge(common, {
             "@babel/preset-react",
             "@babel/preset-typescript"
           ],
-          plugins: [
-            "@babel/plugin-syntax-dynamic-import",
-            "@babel/plugin-proposal-class-properties",
-            "@babel/plugin-transform-runtime"
-          ],
+          plugins: [...babelCommonPlugins],
           cacheDirectory: true,
         }
       }, {
@@ -94,7 +113,7 @@ const production = merge(common, {
 })
 const development = merge(common, {
   devtool: 'inline-source-map',
-  entry: ['react-hot-loader/patch', "./src/index.tsx"],
+  entry: ['react-hot-loader/patch', "./src"],
 
   mode: "development",
 
@@ -114,7 +133,7 @@ const development = merge(common, {
     host: '0.0.0.0',
     historyApiFallback: true,
     contentBase: path.join(__dirname, 'public'),
-    contentBasePublicPath: '/static',
+    contentBasePublicPath: '/',
     port: 9000,
     hot: true,
     headers: {
@@ -134,9 +153,7 @@ const development = merge(common, {
             "@babel/preset-typescript"
           ],
           plugins: [
-            "@babel/plugin-syntax-dynamic-import",
-            "@babel/plugin-proposal-class-properties",
-            "@babel/plugin-transform-runtime",
+            ...babelCommonPlugins,
             "react-hot-loader/babel"
           ],
           cacheDirectory: true,

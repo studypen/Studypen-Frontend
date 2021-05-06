@@ -4,11 +4,12 @@ import * as actions from './actionTypes'
 import { store } from './store'
 import * as constants from './constants'
 import { isDev } from '../utils/tools'
+import { ClassInfo } from '@components/Dashboard'
 // console.log(store);
 
 export const server = axios.create({
   baseURL: isDev ? `http://${window.location.hostname}:8000` : `https://backend.studypen.in`,
-  timeout: 1000,
+  timeout: isDev ? undefined : 1000,
   // xsrfCookieName: 'csrftoken',
   // xsrfHeaderName: 'X-CSRFToken',
   headers: {
@@ -72,12 +73,13 @@ export const initUser = async () : Promise<void> => {
 }
 
 
-export const logout = async (dispatch: Dispatch<AuthAction>): Promise<void> => {
+export const logout = async (): Promise<void> => {
   const res = await server.get<void>('/account/logout/')
     .catch((res: AxiosError) => res.response?.status === 403)
 
-  if (typeof res !== 'boolean') { dispatch({ type: actions.UNSET_CURRENT_USER }) }
+  if (typeof res !== 'boolean') { store.dispatch({ type: actions.UNSET_CURRENT_USER }) }
   else { console.error('handel logout failed') }
+  // TODO: clear memory
 }
 
 export const setUserToken = (tokens: TOKENS) => {
@@ -90,7 +92,10 @@ export const login = async (username: string, password: string): Promise<AxiosRe
     .catch((err: AxiosError<TOKENS>) => { error = true; return err.response })
   if (error) { return res }
 
-  else if (res !== undefined) setUserToken(res.data)
+  else if (res !== undefined) {
+    setUserToken(res.data)
+    getClasses()
+  }
 }
 
 export const registration = async (userDetail: UserRegistrationDetail): Promise<AxiosResponse | void> => {
@@ -103,9 +108,21 @@ export const registration = async (userDetail: UserRegistrationDetail): Promise<
   else if (res !== undefined) setUserToken(res.data)
 }
 
+export const createClass = async (classInfo: ClassInfo): Promise<ClassInfo | void> => {
+  const url = '/classes/'
+
+  const res = await server.post<Classes>(url, classInfo)
+  if(res.status === 201)
+  store.dispatch({
+    type: actions.CLASSES_CREATED,
+    payload: res.data
+  })
+  // TODO: handel errors
+
+}
 
 export const getClasses = async (): Promise<void> => {
-  const url = '/classes/list/'
+  const url = '/classes/'
 
   store.dispatch({type:actions.CLASSES_LOADING})
 
@@ -114,5 +131,5 @@ export const getClasses = async (): Promise<void> => {
     type: actions.CLASSES_LOADED,
     payload: res.data
   })
-
+  // TODO: handle errors
 }

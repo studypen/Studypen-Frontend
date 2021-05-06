@@ -45,6 +45,11 @@ export const classReducer = (
       return { ...state, isLoading: false, isLoaded: false }
     case actionTypes.CLASSES_LOADED:
       return {...state, isLoading:false, isLoaded:true, classes: action.payload}
+    case actionTypes.CLASSES_CREATED:
+      if(state.isLoaded)
+       return { ...state, classes: [...state.classes, action.payload]}
+      
+      return {...state, classes: [action.payload]}
     default:
       return state
   }

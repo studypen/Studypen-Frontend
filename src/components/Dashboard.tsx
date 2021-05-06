@@ -1,38 +1,81 @@
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { shallowEqual } from 'react-redux'
-import { getClasses } from '../data/rest'
+import { createClass, getClasses } from '../data/rest'
 import { useAppState } from '../hooks/useForm'
 import './Dashboard.scss'
-import { InputGroup } from './InputGroup'
+
+const Feeds: FC = () => {
+  return <div className="feeds">
+    <div className="feeds__item">
+      🤵
+    </div>
+    <div className="feeds__item">
+      ⏲️
+    </div>
+    <div className="feeds__item active">
+      🧑‍🏫
+    </div>
+    <div className="feeds__item">
+     🧑‍🎓
+    </div>
+  </div>
+}
 
 const ClassItem: FC<{ cls: Classes }> = ({ cls }) => {
   return (
     <div className="class">
-
       <div className="class__logo"></div>
       <div className="class__description">
-        <div className="class__title">{cls.code}</div>
+
+        <div className="class__title">{cls.name}</div>
+        <div className="class__code">{cls.code}</div>
         <div className="class__teacher_name">{cls.teacher.first_name} {cls.teacher.last_name}</div>
-        <div className="class__extra">provide letter</div>
+      </div>
+      <div className="class__options">
+          <div className="icon">🖊</div>
+          <div className="icon">📝</div>
+          <div className="icon">🔧</div>
       </div>
     </div>
   )
 }
+export interface ClassInfo{
+  name: string,
+  code: string
+}
+
 const CreateClass: FC = () => {
   const [className, setClassName] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   // const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const {register, handleSubmit} = useForm()
-  const innerHandleSubmit = () => {}
- return <>
-  <form onSubmit={handleSubmit(innerHandleSubmit)}>
-    <label className="input-group">
-        
-      <input {...register('className')} />
+  const { register, handleSubmit, setError } = useForm()
+  const innerHandleSubmit = async (data: ClassInfo) => {
+    setIsLoading(true)
 
-    </label>
-  </form>
-  </>
+    const errors = await createClass(data)
+
+    setIsLoading(false)
+
+   }
+  return <div className="create-class">
+    <form onSubmit={handleSubmit(innerHandleSubmit)}>
+      <label className="input-group">
+        <p> Class Name</p>
+        <input {...register('name', { required: true }) } />
+      </label>
+      <label className="input-group">
+        <p> Class code</p>
+        <input {...register('code')} />
+      </label>
+      <label className="input-group">
+        <button disabled={isLoading} type="submit">
+          Create Class
+           {isLoading ? <div className="loader"> </div> : <></>}
+        </button>
+      </label>
+    </form>
+  </div>
 }
 
 const ClassList: FC = () => {
@@ -44,7 +87,7 @@ const ClassList: FC = () => {
       <h1>Your classes</h1>
     </div>
     <div className="class-list__list">
-        <CreateClass></CreateClass>
+      <CreateClass></CreateClass>
       {
         classState.isLoaded
           // if loaded
@@ -62,7 +105,9 @@ const ClassList: FC = () => {
 
 export const Dashboard: FC = () => {
   return <div className="dashboard">
-    <div className="dashboard__contents"></div>
+    <div className="dashboard__feeds">
+      <Feeds/>
+    </div>
     <div className="dashboard__content">
 
       <ClassList />

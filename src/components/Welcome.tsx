@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Login } from './Login'
-import { Registration } from './Registration'
+import { Login } from './auth/Login'
+import { Registration } from './auth/Registration'
 import './Welcome.scss'
 import { EntryContainer } from '../utils/EntryContainer'
-
-
 
 
 

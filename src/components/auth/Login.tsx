@@ -1,9 +1,8 @@
 import React, { FC, Dispatch, useState } from 'react'
-import './Form.scss'
-import { useDispatch } from 'react-redux'
-import { login } from '../data/rest'
-import { InputGroup } from './InputGroup'
-import './Loading.scss'
+import '../../components/Form.scss'
+import { login } from '../../data/rest'
+import { InputGroup } from '../../components/InputGroup'
+import '../../components/Loading.scss'
 
 export const Login: React.FC = () => {
   const [username, setUsername] = useState('')
@@ -49,7 +48,7 @@ export const Login: React.FC = () => {
         <div className="input-group"> <p className="error-msg"> {errorMsg.general}</p>  </div>
         {/* <input disabled={isLoading} type="submit" value="Log in" /> */}
         <button disabled={isLoading} type="submit">
-          Log in
+          Log ina
           { isLoading ? <div className="loader"> </div> : <></> }
         </button>
       </div>

@@ -1,8 +1,7 @@
 import React, { Dispatch, useState } from 'react'
-import './Form.scss'
-import { registration } from '../data/rest'
-import { useDispatch } from 'react-redux'
-import { InputGroup } from './InputGroup'
+import '../Form.scss'
+import { registration } from '../../data/rest'
+import { InputGroup } from '../InputGroup'
 
 const emptyUserRegistrationDetail: UserRegistrationDetail = {
   first_name: '',
@@ -24,11 +23,9 @@ export const Registration: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [errorMsg, setErrorMsg] = useState<UserRegistrationDetail>(emptyUserRegistrationDetail)
 
-  const dispatch: Dispatch<AuthAction> = useDispatch()
-
   const registrationIner = async () => {
     setIsLoading(true)
-    const msg = await registration(dispatch, {
+    const msg = await registration({
       first_name, last_name,
       email, username, password, password2: rePassword
     })
