@@ -44,7 +44,7 @@ export const Registration: React.FC = () => {
 
 
   return (<div>
-    <form onSubmit={(e) => { e.preventDefault(); registrationIner() }}>
+    <form className="form" onSubmit={(e) => { e.preventDefault(); registrationIner() }}>
       <h2> Registration </h2>
       <InputGroup
         label="First Name"

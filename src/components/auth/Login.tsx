@@ -21,7 +21,7 @@ export const Login: React.FC = () => {
 
 
   return (<div>
-    <form id="login-form" onSubmit={(e) => { e.preventDefault(); loginIner() }}>
+    <form className="form" id="login-form" onSubmit={(e) => { e.preventDefault(); loginIner() }}>
       <h2>Login</h2>
       <InputGroup
         label="Username"

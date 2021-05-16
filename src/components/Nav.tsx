@@ -37,7 +37,7 @@ export const Nav: React.FC = () => {
   )
 
   const isLogin = user !== undefined
-  return (<nav>
+  return (<nav id="nav">
     <h1>Study Pen</h1>
     { isLogin
       ? <>

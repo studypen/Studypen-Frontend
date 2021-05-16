@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { shallowEqual } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { createClass, getClasses } from '../data/rest'
 import { useAppState } from '../hooks'
 import './Dashboard.scss'
@@ -24,7 +25,7 @@ const Feeds: FC = () => {
 
 const ClassItem: FC<{ cls: Classes }> = ({ cls }) => {
   return (
-    <div className="class">
+    <Link to={`/class/${cls.id}`} className="class">
       <div className="class__logo"></div>
       <div className="class__description">
 
@@ -37,7 +38,7 @@ const ClassItem: FC<{ cls: Classes }> = ({ cls }) => {
           <div className="icon">📝</div>
           <div className="icon">🔧</div>
       </div>
-    </div>
+    </Link>
   )
 }
 export interface ClassInfo{
@@ -59,7 +60,7 @@ const CreateClass: FC = () => {
 
    }
   return <div className="create-class">
-    <form onSubmit={handleSubmit(innerHandleSubmit)}>
+    <form className="form" onSubmit={handleSubmit(innerHandleSubmit)}>
       <label className="input-group">
         <p> Class Name</p>
         <input {...register('name', { required: true }) } />

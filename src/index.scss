@@ -41,6 +41,11 @@ body,
     font-size: 1.2rem;
     border: none;
   }
+
+  a{
+    text-decoration: initial;
+    color: $primary-black;
+  }
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
   }
