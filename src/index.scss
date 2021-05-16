@@ -1,4 +1,4 @@
-@import './variable.scss';
+@import "./variable.scss";
 :root {
   --c-highlight-blue: #99bbd7;
   --c-highlight-pink: #db8ecf;
@@ -6,42 +6,42 @@
   --c-highlight-orenge: #da9e9a;
   --c-highlight-yellow: #d8bf89;
   --c-primary-black: #131313;
-  --c-primary-white: #FFFFFF;
+  --c-primary-white: #ffffff;
   --c-primary-grey: #6b7c87;
-  --c-global-background: #ECF1F4;
-  --c-primary-color: #704AFD;
+  --c-global-background: #ecf1f4;
+  --c-primary-color: #704afd;
 }
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(--c-global-background);
 }
-html, body, #root{
+html,
+body,
+#root {
   height: 100%;
 }
-*{
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  user-select: none;
-}
-button {
-
-  padding: .4rem 1.2rem;
-  cursor: pointer;
-  color: $primary-white;
-  background: $highlight-yellow;
-  outline: none;
-  font-weight: bold;
-  font-size: 1.2rem;
-  border: none;
-
-}
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.App {
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    user-select: none;
+  }
+  button {
+    padding: 0.4rem 1.2rem;
+    cursor: pointer;
+    color: $primary-white;
+    background: $highlight-yellow;
+    outline: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border: none;
+  }
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  }
 }

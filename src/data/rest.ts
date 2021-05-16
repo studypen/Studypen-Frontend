@@ -66,9 +66,10 @@ export const getAccessToken = async (): Promise<boolean> => {
   // TODO: handel error
 }
 
-export const initUser = async () : Promise<void> => {
+export const initState = async () : Promise<void> => {
   const isAccess = await getAccessToken()
   if (isAccess) fetchCurrentUser() // don't need to await
+  else store.dispatch({ type: actions.TRYING_FETCH_USER_FAILED})
 }
 
 

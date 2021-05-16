@@ -10,6 +10,7 @@
     padding: 0.5rem 0.8rem;
   }
   .dashboard__feeds {
+    padding: 0;
     grid-area: contents;
   }
   .dashboard__content {
@@ -27,10 +28,12 @@
 .feeds {
   display: flex;
   height: 100%;
+  width: 100%;
   align-items: center;
   justify-content: space-around;
   padding: 5rem 0;
   flex-direction: column;
+  box-shadow: 0.6rem 0 .6rem #3333;
   .feeds__item {
     cursor: pointer;
     &:not(.active) {

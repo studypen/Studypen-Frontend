@@ -34,7 +34,8 @@
       "@hooks/*": [
         "hooks/*"
       ],
-      "@utils/*": [ "utils/*"]
+      "@utils/*": [ "utils/*"],
+      "@routes/*": [ "routes/*" ]
     }
   },
   "include": [
@@ -43,5 +44,5 @@
   "exclude": [
     "node_modules",
     "build"
-  ],
+  ]
 }

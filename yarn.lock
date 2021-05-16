@@ -1814,6 +1814,11 @@ babel-plugin-polyfill-regenerator@^0.1.2:
   dependencies:
     "@babel/helper-define-polyfill-provider" "^0.1.5"
 
+babel-plugin-tsconfig-paths@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/babel-plugin-tsconfig-paths/-/babel-plugin-tsconfig-paths-1.0.1.tgz#d8a62745a0c10e6365e83bdbe15a3669cbc4091a"
+  integrity sha512-JRarBIkhkhLdHQU4FPFIyHT61XBquzUqK4f5+HRis9MakxTB16ldDf7B7SOJdEzcu4GnwVWvteKIz3NnCC8drQ==
+
 balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"

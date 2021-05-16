@@ -2,7 +2,7 @@ import React, { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { shallowEqual } from 'react-redux'
 import { createClass, getClasses } from '../data/rest'
-import { useAppState } from '../hooks/useForm'
+import { useAppState } from '../hooks'
 import './Dashboard.scss'
 
 const Feeds: FC = () => {
@@ -79,7 +79,7 @@ const CreateClass: FC = () => {
 }
 
 const ClassList: FC = () => {
-  const classState = useAppState(clses => clses.classReducer, shallowEqual)
+  const classState = useAppState(s => s.classState, shallowEqual)
 
   return <div className="class-list">
     <div className="class-list__tool-bar">

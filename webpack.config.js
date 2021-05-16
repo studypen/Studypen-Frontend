@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { merge } = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-
+const tsconfig = require("./tsconfig.json");
 
 const babelCommonPlugins = [
   // [
@@ -21,6 +21,7 @@ const babelCommonPlugins = [
   //     }
   //   }
   // ],
+  "babel-plugin-tsconfig-paths",
   "@babel/plugin-syntax-dynamic-import",
   "@babel/plugin-proposal-class-properties",
   "@babel/plugin-transform-runtime"
@@ -72,7 +73,7 @@ const production = merge(common, {
   entry: './src/index.tsx',
   mode: 'production',
   output: {
-    publicPath: '',
+    publicPath: '/',
     path: path.resolve(__dirname, 'build'),
     filename: "js/[name].[chunkhash:8].js",
     chunkFilename: 'js/[name].chunk.js'
@@ -123,6 +124,7 @@ const development = merge(common, {
     path: path.resolve(__dirname, "build"),
     filename: "js/[name].js",
     chunkFilename: "js/[name].chunk.js",
+    publicPath: "/",
   },
   resolve: {
     alias: {

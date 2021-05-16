@@ -1,4 +1,7 @@
-
+type MainState = {
+    isLogin: boolean,
+    isLoading:boolean
+}
 
 interface UserRegistrationDetail {
     first_name: string,
@@ -52,4 +55,5 @@ type Action = {
 }
 type AuthAction = Action
 type ClassAction = Action
+type MainAction = Action
 type DispatchType = (args: AuthAction) => AuthState

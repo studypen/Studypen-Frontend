@@ -3,7 +3,7 @@ import { shallowEqual, useDispatch } from 'react-redux'
 import { Dispatch } from 'redux'
 import { logout } from '../data/rest'
 import { AppState } from '../data/store'
-import { useAppState } from '../hooks/useForm'
+import { useAppState } from '../hooks'
 import './Nav.scss'
 
 const NavSearchBar: FC = () => {
@@ -33,7 +33,7 @@ const DropdownItems: FC = ({ children }) => {
 
 export const Nav: React.FC = () => {
   const user = useAppState(
-    (state: AppState) => state.authReducer.user, shallowEqual
+    (state: AppState) => state.auth.user, shallowEqual
   )
 
   const isLogin = user !== undefined
