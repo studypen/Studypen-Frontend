@@ -3,3 +3,16 @@
   overflow-x: hidden;
   flex-grow: 1;
 }
+
+
+.class-page{
+  display: flex;
+  flex-direction: column;
+}
+.loading{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  place-items: center;
+  justify-content: center;
+}

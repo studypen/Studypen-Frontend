@@ -1,0 +1,67 @@
+@import "../../variable.scss";
+@import "src/style/base.scss";
+
+.class-detail {
+  margin: auto;
+  @include media($tablet-landscape-up){
+    margin: 0 5rem;
+  }
+
+  h1 {
+    padding: 0.2em 0.3em;
+    background-color: $highlight-blue;
+    display: flex;
+    border-radius: 0.2em;
+    align-items: center;
+    button {
+      background-color: transparent;
+    }
+    .class__logo {
+      border-radius: 0.2em;
+      min-width: 40px;
+      width: 40px;
+      height: 40px;
+      background-color: #033689;
+    }
+    .class__title {
+      margin-left: 0.5em;
+      max-height: 1em;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      line-clamp: 1;
+    }
+  }
+  h3 {
+    padding: 0.2em 0.3em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .class__code {
+    }
+    .invite-link {
+      background-color: $primary-grey;
+      display: flex;
+      align-items: center;
+      border-radius: 0.4em;
+      padding: 0.25em 0.5em;
+      button {
+        background-color: transparent;
+      }
+    }
+    .code {
+      user-select: text;
+      cursor: text;
+    }
+    .copy {
+      margin-left: 0.8em;
+      border-left: 1px solid $primary-white;
+    }
+    .share,
+    .copy {
+      cursor: pointer;
+      width: 1.5em;
+      border-right: 1px solid $primary-white;
+      padding: 0.2em;
+    }
+  }
+}

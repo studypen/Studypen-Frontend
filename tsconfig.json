@@ -31,6 +31,9 @@
       "@data/*": [
         "data/*"
       ],
+      "@data/rest/*": [
+        "data/rest/*"
+      ],
       "@hooks/*": [
         "hooks/*"
       ],

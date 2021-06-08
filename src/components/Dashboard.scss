@@ -1,13 +1,21 @@
 @import "../variable.scss";
+@import "src/style/base.scss";
+
 .dashboard {
-  display: grid;
-  grid-template-areas: "contents content options";
-  grid-template-columns: 3.5rem 1.35fr 1fr;
+  display: flex;
+  flex-direction: column;
+  @include media($tablet-landscape-up) {
+    display: grid;
+    grid-template-areas: "contents content options";
+    grid-template-columns: 3.5rem 1.35fr 1fr;
+  }
   height: 100%;
   overflow: hidden;
   & > div {
     background: $primary-white;
-    padding: 0.5rem 0.8rem;
+    @include media($tablet-landscape-up) {
+      padding: 0.5rem 0.8rem;
+    }
   }
   .dashboard__feeds {
     padding: 0;
@@ -19,6 +27,9 @@
     margin: 0 10px;
   }
   .dashboard__options {
+    @include media($phone-only) {
+      display: none;
+    }
     grid-area: options;
   }
 }
@@ -27,24 +38,29 @@
 
 .feeds {
   display: flex;
-  height: 100%;
   width: 100%;
   align-items: center;
   justify-content: space-around;
-  padding: 5rem 0;
-  flex-direction: column;
-  box-shadow: 0.6rem 0 .6rem #3333;
+  padding: 1em;
+  @include media($tablet-landscape-up) {
+    padding: 5rem 0;
+  }
+  @include media($tablet-landscape-up) {
+    height: 100%;
+    flex-direction: column;
+  }
+  box-shadow: 0.6rem 0 0.6rem #3333;
   .feeds__item {
     cursor: pointer;
     &:not(.active) {
       filter: grayscale(80%);
     }
-    &.active{
+    &.active {
       position: relative;
-      &::after{
+      &::after {
         border-radius: 0.3em;
         position: absolute;
-        top: -.2em;
+        top: -0.2em;
         right: -0.6em;
         content: "";
         width: 0.35em;
@@ -89,17 +105,16 @@
     display: none;
   }
   .class__options {
-
     margin-left: auto;
     display: flex;
-    .icon{
-      padding: .3em;
+    .icon {
+      padding: 0.3em;
       width: 2em;
       height: 2em;
       border-radius: 50%;
       background: #3eb82e4d;
       cursor: pointer;
-      margin: 0 .3em;
+      margin: 0 0.3em;
     }
     // Todo
   }
@@ -144,46 +159,5 @@
     background: rgb(123, 172, 134);
   }
 
-  .timeline {
-    background-color: #49399a44;
-    width: 100%;
-    height: 100%;
-    min-width: calc(48 * 80px);
-    user-select: none;
-    .class-items {
-      // position: absolute;
-      // top: 0;
-      width: 70px;
-      height: 100%;
-      border-radius: 3px;
-      background-color: lightgreen;
-    }
-    .lines {
-      top: 0;
-      left: 0;
 
-      height: 100%;
-      position: absolute;
-      width: 100%;
-      // margin-right: 500px;
-      .line {
-        left: 10px;
-        padding: 2px;
-        position: absolute;
-        word-wrap: 0;
-        white-space: nowrap;
-        // width: 70px;
-        height: 100%;
-        font-size: 10px;
-        color: #383838;
-
-        &:not(:first-child) {
-          border-left: 1px dashed rgb(71, 71, 71);
-        }
-        &.active {
-          border-left-color: red;
-        }
-      }
-    }
-  }
 }

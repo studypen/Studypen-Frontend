@@ -1,7 +1,12 @@
-footer{
+@import "src/style/base.scss";
 
+
+footer{
   margin: 0.4rem 5rem;
   display: flex;
   font-size: .8rem;
+  @include media($phone-only){
+    display: none;
+  }
 
 }

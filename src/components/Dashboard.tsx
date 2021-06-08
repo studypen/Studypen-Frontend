@@ -1,25 +1,18 @@
+import { Page404 } from '@pages/404page'
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { shallowEqual } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { createClass, getClasses } from '../data/rest'
+import { Link, NavLink, Route, Switch, useRouteMatch } from 'react-router-dom'
+import { createClass, createScheduleClass, getClasses } from '../data/rest'
 import { useAppState } from '../hooks'
+import { TimeSchedule } from './classes/TimeSchedule'
 import './Dashboard.scss'
 
-const Feeds: FC = () => {
+const Feeds: FC<{url: string}> = ({url}) => {
+
   return <div className="feeds">
-    <div className="feeds__item">
-      🤵
-    </div>
-    <div className="feeds__item">
-      ⏲️
-    </div>
-    <div className="feeds__item active">
-      🧑‍🏫
-    </div>
-    <div className="feeds__item">
-     🧑‍🎓
-    </div>
+    <NavLink to={`${url}/classes`}><div className="feeds__item">🤵</div></NavLink>
+    <NavLink to={`${url}/schedule`}><div className="feeds__item">⏲️</div></NavLink>
   </div>
 }
 
@@ -45,16 +38,53 @@ export interface ClassInfo{
   name: string,
   code: string
 }
+export interface ClassSchedule{
+
+}
+
+const CreateClassSchedule:FC<{cls: Classes}> = ({cls}) => {
+
+  const [isLoading, setIsLoading] = useState(false)
+  // const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, setError } = useForm()
+  const innerHandleSubmit = async (data: ClassSchedule) => {
+    setIsLoading(true)
+
+    const res = await createScheduleClass(data)
+
+
+    setIsLoading(false)
+
+   }
+  return <div className="create-class">
+    <form className="form" onSubmit={handleSubmit(innerHandleSubmit)}>
+      <label className="input-group">
+        <p> Class Name</p>
+        <input {...register('name', { required: true }) } />
+      </label>
+      <label className="input-group">
+        <p> Class code</p>
+        <input {...register('code')} />
+      </label>
+      <label className="input-group">
+        <button disabled={isLoading} type="submit">
+          Create Class
+           {isLoading ? <div className="loader"> </div> : <></>}
+        </button>
+      </label>
+    </form>
+  </div>
+}
+
 
 const CreateClass: FC = () => {
-  const [className, setClassName] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   // const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const { register, handleSubmit, setError } = useForm()
   const innerHandleSubmit = async (data: ClassInfo) => {
     setIsLoading(true)
 
-    const errors = await createClass(data)
+    const res = await createClass(data)
 
     setIsLoading(false)
 
@@ -105,15 +135,21 @@ const ClassList: FC = () => {
 }
 
 export const Dashboard: FC = () => {
+  const {path, url} = useRouteMatch()
+
   return <div className="dashboard">
-    <div className="dashboard__feeds">
-      <Feeds/>
-    </div>
     <div className="dashboard__content">
 
-      <ClassList />
+      <Switch>
+        <Route path={`${path}/classes`} component={ClassList}/>
+        <Route path={`${path}/schedule`} component={TimeSchedule}/>
+
+      </Switch>
     </div>
     <div className="dashboard__options"></div>
+    <div className="dashboard__feeds">
+      <Feeds url={url}/>
+    </div>
   </div>
 }
 

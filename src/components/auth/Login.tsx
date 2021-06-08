@@ -14,7 +14,9 @@ export const Login: React.FC = () => {
     setIsLoading(true)
     const msg = await login(username, password)
     if (msg !== undefined) {
-      setErrorMsg({ ...errorMsg, general: msg?.data?.detail ?? '' })
+      if (typeof msg == 'string')
+        setErrorMsg({...errorMsg, general: msg})
+      else setErrorMsg({ ...errorMsg, general: msg?.data?.detail ?? '' })
       setIsLoading(false)
     }
   }

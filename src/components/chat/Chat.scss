@@ -1,0 +1,106 @@
+@import "../../variable.scss";
+.chat {
+  height: 100%;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 10px;
+  width: clamp(300px, 100%, 800px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  font-size: .9rem;
+  padding: 0.5rem 0.5rem;
+  .messages {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    .msg {
+      margin: 0.2em;
+      max-width: 65%;
+      background-color: $highlight-violet;
+      align-self: flex-start;
+      padding: 0.4em;
+      border-radius: 0.35em;
+      .body{
+        margin-right: 1ch;
+        user-select: text;
+      }
+      &.self {
+        .sender{ display: none;}
+        background-color: $highlight-yellow;
+        align-self: flex-end;
+      }
+      .sender{
+        font-size: .7em;
+        font-weight: bold;
+        color: $highlight-orenge;
+      }
+      .time{
+        float: right;
+        font-size: .7em;
+        opacity: 0.7;
+      }
+
+
+    }
+  }
+
+  .write {
+    width: 100%;
+    form {
+      width: 100%;
+      bottom: 29px;
+      left: 30px;
+      height: 42px;
+      padding-left: 8px;
+      border: 1px solid var(--light, #652356);
+      background-color: #eceff1;
+      border-radius: 5px;
+      display: flex;
+    }
+    input {
+      flex-grow: 1;
+      font-size: 16px;
+      height: 40px;
+      padding: 0 10px;
+      color: var(--dark);
+      border: 0;
+      outline: none;
+      background-color: #eceff1;
+    }
+    .write-link {
+      &.attach {
+        display: inline-block;
+        width: 20px;
+        height: 42px;
+        content: "";
+        background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/attachment.png");
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      &.smiley {
+        display: inline-block;
+        width: 20px;
+        height: 42px;
+        content: "";
+        background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/smiley.png");
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      &.send {
+        display: inline-block;
+        width: 20px;
+        height: 42px;
+        margin: 0 11px;
+        content: "";
+        // TODO: icons
+        background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/382994/send.png");
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+    }
+  }
+}

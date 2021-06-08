@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react'
 import { shallowEqual, useDispatch } from 'react-redux'
 import { Dispatch } from 'redux'
-import { logout } from '../data/rest'
-import { AppState } from '../data/store'
-import { useAppState } from '../hooks'
+import { logout } from '@data/rest'
+import { AppState } from '@data/store'
+import { useAppState } from '@hooks/index'
 import './Nav.scss'
 
 const NavSearchBar: FC = () => {

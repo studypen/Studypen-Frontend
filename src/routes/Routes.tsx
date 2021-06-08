@@ -22,7 +22,8 @@ export const Routes: FC = () => {
       <Nav />
       <Switch>
         <Route exact path="/login"> <LoginPage /> </Route>
-        <UserRoute exact path="/" component={DashboardPage}/>
+        <UserRoute exact path="/" ><Redirect to={`/dashboard`}/> </UserRoute>
+        <UserRoute path="/dashboard" component={DashboardPage} />
         <UserRoute exact path="/class/:id" component={ClassPage}/>
         <Route component={Page404} />
       </Switch>

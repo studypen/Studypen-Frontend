@@ -1,14 +1,14 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
-import * as actions from './actionTypes'
-import { store } from './store'
-import * as constants from './constants'
-import { isDev } from '../utils/tools'
-import { ClassInfo } from '../components/Dashboard'
+import * as actions from '../actionTypes'
+import { store } from '../store'
+import * as constants from '../constants'
+import { isDev } from '@utils/tools'
+import { ClassInfo, ClassSchedule } from '@components/Dashboard'
 // console.log(store);
 
 export const server = axios.create({
   baseURL: isDev ? `http://${window.location.hostname}:8000` : `https://backend.studypen.in`,
-  timeout: isDev ? undefined : 1000,
+  timeout: isDev ? undefined : 5000,
   // xsrfCookieName: 'csrftoken',
   // xsrfHeaderName: 'X-CSRFToken',
   headers: {
@@ -18,9 +18,11 @@ export const server = axios.create({
   ,
   // withCredentials: true
 })
+
+
 // const csrfCooke = async() => {
-  // const res = server.get('/cors/')
-  // console.log(res)
+// const res = server.get('/cors/')
+// console.log(res)
 // }
 // csrfCooke()
 
@@ -34,7 +36,20 @@ export const server = axios.create({
 //   password: 'somethingNew'
 //  })
 // }).then(res => res.json()).then(console.log).catch(console.error);
-
+/**
+ * TODO: {
+           "detail": "Given token not valid for any token type",
+            "code": "token_not_valid",
+            "messages": [
+                {
+                    "token_class": "AccessToken",
+                    "token_type": "access",
+                    "message": "Token is invalid or expired"
+                }
+            ],
+            "status_code": 403
+        }
+*/
 
 export const fetchCurrentUser = async (): Promise<void> => {
   store.dispatch({ type: actions.TRYING_FETCH_USER })
@@ -48,6 +63,23 @@ export const fetchCurrentUser = async (): Promise<void> => {
     getClasses()
     store.dispatch({ type: actions.SET_CURRENT_USER, payload: res.data })
   }
+}
+
+export const getClassInviteId = async (id: string) => {
+  // http://localhost:8000/classes/invite/?c=VoAnCU9a
+  // { "invite_id": "1QFfJ98s" }
+  try {
+
+    const res = await server.get<{ invite_id: string }>('/classes/invite/', {
+      params: { c: id }
+    })
+    return res.data.invite_id
+  } catch (error) {
+    // TODO: don't show error msg
+    return `error: ${error}`
+  }
+
+
 }
 
 export const getAccessToken = async (): Promise<boolean> => {
@@ -66,10 +98,10 @@ export const getAccessToken = async (): Promise<boolean> => {
   // TODO: handel error
 }
 
-export const initState = async () : Promise<void> => {
+export const initState = async (): Promise<void> => {
   const isAccess = await getAccessToken()
   if (isAccess) fetchCurrentUser() // don't need to await
-  else store.dispatch({ type: actions.TRYING_FETCH_USER_FAILED})
+  else store.dispatch({ type: actions.TRYING_FETCH_USER_FAILED })
 }
 
 
@@ -83,18 +115,16 @@ export const logout = async (): Promise<void> => {
 }
 
 export const setUserToken = (tokens: TOKENS) => {
-  store.dispatch({ type: actions.SET_TOKEN, payload: tokens})
+  store.dispatch({ type: actions.SET_TOKEN, payload: tokens })
   store.dispatch({ type: actions.SET_CURRENT_USER, payload: tokens.user })
 }
-export const login = async (username: string, password: string): Promise<AxiosResponse | void> => {
-  let error = false
-  const res = await server.post<TOKENS>('/account/token/', { username, password })
-    .catch((err: AxiosError<TOKENS>) => { error = true; return err.response })
-  if (error) { return res }
-
-  else if (res !== undefined) {
+export const login = async (username: string, password: string): Promise<AxiosResponse | string | void > => {
+  try{
+    const res = await server.post<TOKENS>('/account/token/', { username, password })
     setUserToken(res.data)
     getClasses()
+  }catch(err){
+    return err.response ?? err.message
   }
 }
 
@@ -112,19 +142,20 @@ export const createClass = async (classInfo: ClassInfo): Promise<ClassInfo | voi
   const url = '/classes/'
 
   const res = await server.post<Classes>(url, classInfo)
-  if(res.status === 201)
-  store.dispatch({
-    type: actions.CLASSES_CREATED,
-    payload: res.data
-  })
+  if (res.status === 201)
+    store.dispatch({
+      type: actions.CLASSES_CREATED,
+      payload: res.data
+    })
   // TODO: handel errors
+  return res.data
 
 }
 
 export const getClasses = async (): Promise<void> => {
   const url = '/classes/'
 
-  store.dispatch({type:actions.CLASSES_LOADING})
+  store.dispatch({ type: actions.CLASSES_LOADING })
 
   const res = await server.get<Classes[]>(url)
   store.dispatch({
@@ -132,4 +163,26 @@ export const getClasses = async (): Promise<void> => {
     payload: res.data
   })
   // TODO: handle errors
+}
+
+
+export const getClassMessages = async (clsId: string) => {
+  // /message/class/?c=_4i0HNGm
+  try {
+
+    const res = await server.get<ClassMessage[]>('/message/class/', {
+      params: { c: clsId }
+    })
+    // TODO: save in state
+    return res.data
+  } catch (error) {
+    // TODO: don't show error msg
+    return `error: ${error}`
+  }
+
+
+}
+
+export const createScheduleClass = (data: ClassSchedule) => {
+  throw new Error('Function not implemented.')
 }

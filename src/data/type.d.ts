@@ -1,6 +1,6 @@
 type MainState = {
     isLogin: boolean,
-    isLoading:boolean
+    isLoading: boolean
 }
 
 interface UserRegistrationDetail {
@@ -57,3 +57,16 @@ type AuthAction = Action
 type ClassAction = Action
 type MainAction = Action
 type DispatchType = (args: AuthAction) => AuthState
+
+interface Message {
+    body: string,
+    sender: {
+        username: string
+    },
+    parent_msg?: string,
+    sent_at: string
+}
+interface ClassMessage {
+    msg: Message,
+    classes: string
+}
