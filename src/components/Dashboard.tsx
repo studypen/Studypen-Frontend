@@ -2,7 +2,7 @@ import { Page404 } from '@pages/404page'
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { shallowEqual } from 'react-redux'
-import { Link, NavLink, Route, Switch, useRouteMatch } from 'react-router-dom'
+import { Link, NavLink, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
 import { createClass, createScheduleClass, getClasses } from '../data/rest'
 import { useAppState } from '../hooks'
 import { TimeSchedule } from './classes/TimeSchedule'
@@ -143,6 +143,7 @@ export const Dashboard: FC = () => {
       <Switch>
         <Route path={`${path}/classes`} component={ClassList}/>
         <Route path={`${path}/schedule`} component={TimeSchedule}/>
+        <Route path={`${path}/`}><Redirect to={`${path}/classes`}/></Route>
 
       </Switch>
     </div>
