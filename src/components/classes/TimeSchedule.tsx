@@ -1,3 +1,5 @@
+import { fetchClassSchedule } from '@data/rest/class'
+import { useAppState } from '@hooks/index'
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react'
 import './TimeSchedule.scss'
 export const TimeLine: FC = () => {
@@ -92,15 +94,55 @@ export const TimeLine: FC = () => {
 }
 
 
-const ClassItem:FC<{name:string, startTime: number}> = ({name}) => {
-  return <div className="class-items">
+const ClassItem:FC<{key:string, name:string, top: number, height: number}> = ({key, name, top, height}) => {
+  return <div key={key} className="class-items" style={{top, height}}>
     <div className="name">{name}</div>
   </div>
 }
 
-const TimeLineHorizontal: FC= () => {
-  const startTime = 10
+const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat']
+const TimeLineHorizontal: FC <{day: number}>= ({day} ) => {
+  const startTime = 7
   const endTime = 17
+  const hourHeight = 60
+  const totalHeigh = (endTime - startTime) * hourHeight
+
+  const classes: Classes[] = useAppState(s => s.classState.classes ?? [])
+  const schedules = useAppState(s=> s.classState.isLoaded? s.classState.timeSchedule: {})
+  const classIdName: Map<string, string> = new Map()
+  const date =  new Date()
+
+  const hour = date.getHours() - startTime
+  const minute =date.getMinutes()
+
+  useEffect(()=>{
+    for(const c of classes){
+      if(schedules[c.id] === undefined){
+        fetchClassSchedule(c.id)
+      }
+    }
+  }, [classes])
+  const showClasses: {name: string, top: number, height: number}[] = useMemo(()=> {
+    const res: {name: string, top: number, height: number}[] = []
+    for(const c of classes){
+      classIdName.set(c.id, c.name)
+    }
+    for(const s in schedules){
+      const today = schedules[s].filter(t => t.day_of_week === day)
+      if(today.length === 0) continue
+
+      for (const t of today){
+        const stimes = t.start_time.split(':')
+        const etimes = t.start_time.split(':')
+        const top = (((+stimes[0]) - startTime)  *  hourHeight )+((+stimes[1]) * hourHeight/60 )
+        const height = ((+etimes[0]) - startTime)+((+etimes[1]) * hourHeight/60 ) - top
+
+        res.push({name: classIdName.get(t.classes)?? '', top, height})
+      }
+    }
+    return res
+  }, [schedules, day])
+
   const times :string[] =  useMemo(()=> {
     const times: string[] = []
     for(let i = startTime; i <= endTime;i++){
@@ -109,35 +151,18 @@ const TimeLineHorizontal: FC= () => {
     return times
   }, [])
 
-  const classes = [
-    {
-      name: 'Computer Architecture',
-      startTime: 10
-    },
-    {
-      name: 'Automata Theory',
-      startTime: 11
-    },
-    {
-      name: 'Design and Analysis of Algorithm',
-      startTime: 12
-    },
-    {
-      name: 'Economics for Engineers',
-      startTime: 14
-    },
-  ]
+
 
   return <div className="timeline-hz">
-    <div className="clock">
-      {times.map(e=> <div className="time"> {e} </div> )}
+    <div className="clock" style={{height: totalHeigh}}>
+      {times.map((e, i)=> <div style={{top: i * hourHeight}} className="time"> {e} </div> )}
 
     </div>
     <div className="hz-classes">
-        {classes.map(e=> <ClassItem {...e}/>)}
+        {showClasses.map(e=> <ClassItem key={e.name} {...e}/>)}
     </div>
-    <div className="current-time">
-      <div className="ct__time">10:50</div>
+    <div style={{top: (hour * hourHeight )+( minute * (hourHeight/60))}} className="current-time">
+      <div className="ct__time">{`${hour + startTime}:${minute}`}</div>
       <div className="line"></div>
     </div>
 
@@ -145,7 +170,8 @@ const TimeLineHorizontal: FC= () => {
 }
 
 export const TimeSchedule: FC = () => {
-
+  const d = new Date(Date.now());
+  const [cDay, setDay] = useState(d.getDay() + 1)
 
   return <>
 
@@ -159,30 +185,11 @@ export const TimeSchedule: FC = () => {
         </div>
       </div>
       <div className="sub-options">
-        <div className="option">
-          Sun
-        </div>
-        <div className="option active">
-          Mon
-        </div>
-        <div className="option">
-          Tue
-        </div>
-        <div className="option">
-        Wed
-        </div>
-        <div className="option">
-        Thur
-        </div>
-        <div className="option">
-        Fri
-        </div>
-                <div className="option">
-                Sat
-        </div>
+        {days.map((day,i) => <button  onClick={()=>{ setDay(i + 1); console.log('eee');
+        }} className={`option ${i === (cDay - 1)? 'active' : ''}`}>{day}</button>)}
       </div>
     </div>
-    <TimeLineHorizontal/>
+    <TimeLineHorizontal day={cDay}/>
     {/* <TimeLine/> */}
   </>
 }

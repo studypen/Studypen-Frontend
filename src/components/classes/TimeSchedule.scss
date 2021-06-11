@@ -39,6 +39,8 @@ form.form.flex{
 }
 
 .class-items{
+  position: absolute;
+  width: 100%;
   height: 3.6em;
   background-color: #9fb994;
   border: 1px solid #335237;
@@ -55,19 +57,21 @@ form.form.flex{
   // grid-auto-columns: 3em 1fr;
   .clock{
     width: 3em;
-
+    position: relative;
     .time{
-      &:not(:first-child){ margin-top: 3em;}
+      position: absolute;
+      left: 0;
       font-size: 0.8em;
     }
   }
   .hz-classes{
     flex-grow: 1;
+    position: relative;
+    overflow: hidden;
   }
   .current-time{
     position: absolute;
     left: 0;
-    top: 40px;
     width: 100%;
     display: flex;
     align-items: center;
