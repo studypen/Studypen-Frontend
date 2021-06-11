@@ -1,4 +1,4 @@
-import { server } from '@data/rest'
+import { getClasses, server } from '@data/rest'
 import { AxiosError } from 'axios'
 import * as actions from '@data/actionTypes'
 import {store} from '@data/store'
@@ -19,6 +19,18 @@ export type ClassScheduleType = {
   "end_time": `${number}:${number}`,
   "classes": string
 }
+export const join = async(id: string) => {
+try{
+  const url = `/classes/join/?v=${id}`
+  await server.get(url)
+  getClasses()
+  return true
+
+}catch(err) {
+  return false
+}
+}
+
 export const createClassSchedule = async ({day, start_time, end_time, classes}: ClassScheduleType) => {
   try {
     const schedule : ClassSchedule = {

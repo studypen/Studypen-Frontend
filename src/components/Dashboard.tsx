@@ -1,3 +1,4 @@
+import { join } from '@data/rest/class'
 import { Page404 } from '@pages/404page'
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -75,6 +76,40 @@ const CreateClass: FC = () => {
     </form>
   </div>
 }
+const JoinClasses :FC = ()=> {
+  const [isLoading, setIsLoading] = useState(false)
+  // const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, setError,reset } = useForm()
+  const [isSummit, setIsSummit] = useState(false)
+
+  const [isError, setIsError] = useState(false)
+  const innerHandleSubmit = async (data: ClassInfo) => {
+    setIsLoading(true)
+    setIsSummit(true)
+    const res = await join(data['code'])
+    setIsError(!res)
+    setIsLoading(false)
+
+    if(res) reset()
+   }
+  return <div className="join-class">
+    <form className="form" onSubmit={handleSubmit(innerHandleSubmit)}>
+      <label className="input-group">
+        <p> Invite code</p>
+        <input {...register('code', { required: true }) } />
+      </label>
+      <label className="input-group">
+        { isSummit && isError ? 'Joining fail' : ''}
+        { isSummit && !isError ? 'Joining success' : ''}
+
+        <button disabled={isLoading} type="submit">
+          Join
+           {isLoading ? <div className="loader"> </div> : <></>}
+        </button>
+      </label>
+    </form>
+  </div>
+}
 
 const ClassList: FC = () => {
   const classState = useAppState(s => s.classState, shallowEqual)
@@ -85,6 +120,8 @@ const ClassList: FC = () => {
       <h1>Your classes</h1>
     </div>
     <div className="class-list__list">
+    <JoinClasses></JoinClasses>
+
       <CreateClass></CreateClass>
       {
         classState.isLoaded
