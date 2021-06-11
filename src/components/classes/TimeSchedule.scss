@@ -19,6 +19,25 @@
   }
 }
 
+form.form.flex{
+  display: flex;
+  label{
+    display: flex;
+  }
+  height: 3em;
+
+}
+
+.schedule{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background: #89b9c59f;
+  border: 1px solid #3e4b52;
+  padding: 0.6em 1em;
+  margin-top: 0.6em;
+}
+
 .class-items{
   height: 3.6em;
   background-color: #9fb994;

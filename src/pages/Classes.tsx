@@ -11,6 +11,5 @@ export const ClassPage: FC = ()=>{
   return <section className="class-page page">
     <ClassDetail id={id} />
     {/* { TODO: tab or easy layout } */}
-    <Chat/>
   </section>
 }

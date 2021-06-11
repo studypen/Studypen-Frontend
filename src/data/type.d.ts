@@ -37,11 +37,19 @@ type AuthState = {
     user?: User,
     token?: string
 }
+
+type ClassSchedule = {
+    "day_of_week": number, // sun=1...sat=7
+    "start_time": string, // "16:00", hh:mm
+    "end_time": string, //"17:00", hh:mm
+    "classes": string,// "8LUW1X3Q" id
+  }
 type ClassState = {
     isLoading: boolean,
     isLoaded: false,
-    classes?: Classes[]
+    classes?: Classes[],
 } | {
+    timeSchedule: {[id:string]: ClassSchedule[]},
     isLoading: boolean,
     isLoaded: true,
     classes: Classes[]

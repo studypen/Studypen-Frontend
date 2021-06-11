@@ -183,6 +183,6 @@ export const getClassMessages = async (clsId: string) => {
 
 }
 
-export const createScheduleClass = (data: ClassSchedule) => {
-  throw new Error('Function not implemented.')
-}
+// export const createScheduleClass = (data: ClassSchedule) => {
+//   throw new Error('Function not implemented.')
+// }

@@ -3,7 +3,7 @@ import React, { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { shallowEqual } from 'react-redux'
 import { Link, NavLink, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
-import { createClass, createScheduleClass, getClasses } from '../data/rest'
+import { createClass,  getClasses } from '../data/rest'
 import { useAppState } from '../hooks'
 import { TimeSchedule } from './classes/TimeSchedule'
 import './Dashboard.scss'
@@ -42,39 +42,6 @@ export interface ClassSchedule{
 
 }
 
-const CreateClassSchedule:FC<{cls: Classes}> = ({cls}) => {
-
-  const [isLoading, setIsLoading] = useState(false)
-  // const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const { register, handleSubmit, setError } = useForm()
-  const innerHandleSubmit = async (data: ClassSchedule) => {
-    setIsLoading(true)
-
-    const res = await createScheduleClass(data)
-
-
-    setIsLoading(false)
-
-   }
-  return <div className="create-class">
-    <form className="form" onSubmit={handleSubmit(innerHandleSubmit)}>
-      <label className="input-group">
-        <p> Class Name</p>
-        <input {...register('name', { required: true }) } />
-      </label>
-      <label className="input-group">
-        <p> Class code</p>
-        <input {...register('code')} />
-      </label>
-      <label className="input-group">
-        <button disabled={isLoading} type="submit">
-          Create Class
-           {isLoading ? <div className="loader"> </div> : <></>}
-        </button>
-      </label>
-    </form>
-  </div>
-}
 
 
 const CreateClass: FC = () => {
